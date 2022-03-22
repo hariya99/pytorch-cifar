@@ -1,0 +1,21 @@
+#!/bin/bash
+sbatch lr05batch64.sbatch
+sbatch lr05batch128.sbatch
+sbatch lr05batch256.sbatch
+sbatch lr05batch512.sbatch
+sbatch lr1batch64.sbatch
+sbatch lr1batch128.sbatch
+sbatch lr1batch256.sbatch
+sbatch lr1batch512.sbatch
+sbatch lr2batch64.sbatch
+sbatch lr2batch128.sbatch
+sbatch lr2batch256.sbatch
+sbatch lr2batch512.sbatch
+sbatch lr4batch64.sbatch
+sbatch lr4batch128.sbatch
+sbatch lr4batch256.sbatch
+sbatch lr4batch512.sbatch
+sbatch lr8batch64.sbatch
+sbatch lr8batch128.sbatch
+sbatch lr8batch256.sbatch
+sbatch lr8batch512.sbatch

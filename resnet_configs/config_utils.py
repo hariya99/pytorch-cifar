@@ -1,9 +1,9 @@
 import os 
-def generate_lr_momentum_config():
+def generate_lr_momentum_config(config_file_name):
   momentum = [0.025, 0.05, 0.1, 0.2, 0.4, 0.8]
   lr = [0.05, 0.1, 0.2, 0.4, 0.8]
   name_list = []
-  with open('lr_momentum.yaml', 'w') as outfile:
+  with open(config_file_name, 'w') as outfile:
     for item1 in lr:
       for item2 in momentum: 
         name = f'lr{str(item1).split(".")[1]}mom{str(item2).split(".")[1]}'
@@ -29,6 +29,39 @@ def generate_lr_momentum_config():
   data_augmentation: 1 # True=1, False=0 
   data_normalize: 1 # True=1, False=0 
   grad_clip: 0.1\n'''.format(name, item2, item1)
+        outfile.write(config)
+  return name_list
+
+def generate_lr_batch_config(config_file_name):
+  batch = [64, 128, 256, 512]
+  lr = [0.05, 0.1, 0.2, 0.4, 0.8]
+  name_list = []
+  with open(config_file_name, 'w') as outfile:
+    for item1 in lr:
+      for item2 in batch: 
+        name = f'lr{str(item1).split(".")[1]}batch{str(item2)}'
+        name_list.append(name)
+        config = '''
+{0}:
+  avg_pool_kernel_size: 100
+  conv_kernel_sizes: [3,3,3,3] 
+  num_blocks: [2,1,1,1] 
+  num_channels: 64
+  shortcut_kernel_sizes: [1,1,1,1] 
+  drop: 0 # proportion for dropout 
+  squeeze_and_excitation: 0 # True=1, False=0 
+  max_epochs: 200
+  optim: "sgd" 
+  lr_sched: "CosineAnnealingLR"
+  momentum: 0.9
+  lr: {1} 
+  weight_decay: 0.0005 
+  batch_size: {2}
+  num_workers: 2
+  resume_ckpt: 0 # 0 if not resuming, else path to checkpoint  
+  data_augmentation: 1 # True=1, False=0 
+  data_normalize: 1 # True=1, False=0 
+  grad_clip: 0.1\n'''.format(name, item1, item2)
         outfile.write(config)
   return name_list
 
@@ -64,5 +97,6 @@ python ../main.py --config ../resnet_configs/{1} --resnet_architecture {0}
 
 
 if __name__ == "__main__":
-  name_list = generate_lr_momentum_config()        
-  generate_batch_file('lr_momentum.yaml', 'lr_momentum.sh', name_list)
+  # name_list = generate_lr_momentum_config('lr_momentum.yaml')        
+  name_list = generate_lr_batch_config('batch_lr.yaml')
+  generate_batch_file('batch_lr.yaml', 'lr_batch.sh', name_list)
