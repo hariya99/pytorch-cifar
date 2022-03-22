@@ -56,9 +56,9 @@ module load anaconda3/2020.07
 eval "$(conda shell.bash hook)"
 conda activate harienv
 
-python ../main.py --config ../resnet_configs/{1} --resnet_architecture {0}\n
+python ../main.py --config ../resnet_configs/{1} --resnet_architecture {0}
 '''.format(name, config_file_name)
-      outfile.write(script)
+      outfile.write(script.strip())
   shell_file.close()
 
 

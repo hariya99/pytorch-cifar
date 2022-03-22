@@ -1,4 +1,3 @@
-
 #!/bin/bash
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
@@ -15,4 +14,3 @@ eval "$(conda shell.bash hook)"
 conda activate harienv
 
 python ../main.py --config ../resnet_configs/lr_momentum.yaml --resnet_architecture lr05mom8
-
