@@ -35,6 +35,7 @@ def generate_lr_momentum_config():
 def generate_batch_file(config_file_name, sh_file_name, name_list):
   sh_path = os.path.join('..', 'scripts', sh_file_name)
   shell_file = open(sh_path, 'w')
+  shell_file.write('#!/bin/bash\n')
   for name in name_list:
     file_name = name + '.sbatch'
     shell_file.write('sbatch ' + file_name + '\n')

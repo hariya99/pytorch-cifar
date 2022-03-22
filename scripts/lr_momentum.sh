@@ -1,3 +1,4 @@
+#!/bin/bash
 sbatch lr05mom025.sbatch
 sbatch lr05mom05.sbatch
 sbatch lr05mom1.sbatch
